@@ -1,10 +1,10 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["mongodb"]
 }
 
 datasource db {
-  provider             = "mysql"
+  provider             = "mongodb"
   url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
@@ -14,11 +14,3 @@ model views {
   count BigInt @default(1)
 }
 
-model guestbook {
-  id         BigInt   @id @default(autoincrement())
-  email      String   @db.VarChar(256)
-  body       String   @db.VarChar(500)
-  created_by String   @db.VarChar(256)
-  created_at DateTime @default(now()) @db.DateTime(6)
-  updated_at DateTime @default(now()) @db.DateTime(6)
-}

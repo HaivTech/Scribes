@@ -36,10 +36,10 @@ export default function Home({ posts }) {
                 Scribes
               </span>
             </h1>
-            <h2 className="prose pt-5 text-lg text-gray-600 dark:text-gray-300">
+            <blockquote className="prose pt-5 text-lg text-gray-600 dark:text-gray-300">
               {` ${siteMetadata.description} This initiative helps writers and content creators to know that their story is worth telling, their voices; worth hearing. It is a platform that creates the opportunity
                to grow from a novice to being a professional in Creative Writing and Audio-visual Creation.`}
-            </h2>
+            </blockquote>
           </div>
           <div className="h-content sm:h-content-sm flex flex-col justify-around">
             <h1 className="sm:text-8.5xl tracking-tightest my-28 select-none text-center text-6xl font-extrabold leading-none sm:my-10">

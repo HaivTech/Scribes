@@ -10,7 +10,7 @@ import Typewriter from 'typewriter-effect'
 import { useRouter } from 'next/router'
 import DropMenu from './DropMenu.js'
 import Logo from '@/data/logo.svg'
-// import MobileNav from './MobileNav'
+import MobileNav from './MobileNav'
 
 const LayoutWrapper = ({ children }) => {
   const router = useRouter()

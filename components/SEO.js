@@ -80,27 +80,22 @@ export const BlogSEO = ({
   url,
   canonicalUrl,
 }) => {
+  const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
   const router = useRouter()
-  const publishedAt = new Date(createdAt).toISOString()
-  const modifiedAt = new Date(createdAt || createdAt).toISOString()
+  const publishedAt = new Date(createdAt).toLocaleDateString(siteMetadata.locale, postDateTemplate)
+  const modifiedAt = new Date(createdAt || createdAt).toLocaleDateString(
+    siteMetadata.locale,
+    postDateTemplate
+  )
 
   let image = !thumbnail ? [siteMetadata.socialBanner] : image
 
-  const featuredImages = imagesArr.map((img) => {
-    return {
-      '@type': 'ImageObject',
-      url: img.includes('http') ? img : siteMetadata.siteUrl + img,
-    }
-  })
-
   let authorList
   if (authorDetails) {
-    authorList = authorDetails.map((author) => {
-      return {
-        '@type': 'Person',
-        name: author.name,
-      }
-    })
+    authorList = {
+      '@type': 'Person',
+      name: authorDetails.name,
+    }
   } else {
     authorList = {
       '@type': 'Person',
@@ -116,7 +111,7 @@ export const BlogSEO = ({
       '@id': url,
     },
     headline: title,
-    image: featuredImages,
+    image: image,
     datePublished: publishedAt,
     dateModified: modifiedAt,
     author: authorList,
@@ -128,10 +123,10 @@ export const BlogSEO = ({
         url: `${siteMetadata.siteUrl}${siteMetadata.siteLogo}`,
       },
     },
-    description: summary,
+    description: title,
   }
 
-  const twImageUrl = featuredImages[0].url
+  const twImageUrl = image
 
   return (
     <>
@@ -139,13 +134,13 @@ export const BlogSEO = ({
         title={title}
         description={meta}
         ogType="article"
-        ogImage={thumbnail}
-        twImage={thumbnail}
+        ogImage={image}
+        twImage={image}
         canonicalUrl={canonicalUrl}
       />
       <Head>
-        {date && <meta property="article:published_time" content={publishedAt} />}
-        {lastmod && <meta property="article:modified_time" content={modifiedAt} />}
+        {createdAt && <meta property="article:published_time" content={publishedAt} />}
+        {createdAt && <meta property="article:modified_time" content={modifiedAt} />}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
